@@ -1,0 +1,51 @@
+<p-dialog
+  header="Edit Profile"
+  [modal]="true"
+  [(visible)]="visible"
+  [style]="{ width: '25rem' }"
+  (onHide)="onHideDialog()"
+>
+  <div class="registration-form">
+    <form>
+      <div class="form-group">
+        <input
+          type="text"
+          class="form-control item"
+          id="fullName"
+          name="fullName"
+          placeholder="FullName"
+          [(ngModel)]="employee.employee_name"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="number"
+          class="form-control item"
+          id="salary"
+          name="salary"
+          placeholder="Salary"
+          [(ngModel)]="employee.employee_salary"
+        />
+      </div>
+      <div class="form-group">
+        <input
+          type="number"
+          class="form-control item"
+          id="age"
+          name="age"
+          placeholder="age"
+          [(ngModel)]="employee.employee_age"
+        />
+      </div>
+      <div class="form-group">
+        <button
+          type="button"
+          class="btn btn-block create-account"
+          (click)="onSubmit()"
+        >
+          {{ dictionary.EditEmployee }}
+        </button>
+      </div>
+    </form>
+  </div>
+</p-dialog>

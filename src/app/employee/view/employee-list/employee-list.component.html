@@ -1,0 +1,37 @@
+<div class="container mt-3">
+  <div class="my-2 mx-2">
+    <button
+      type="button"
+      class="btn btn-success edit-button"
+      (click)="openCreateDialog = true"
+    >
+      {{ dictionary.CreateEmployee }}
+    </button>
+  </div>
+  <div class="card mt-2" *ngFor="let employee of employees">
+    <div class="card-body">
+      {{ dictionary.Name }}: {{ employee.employee_name }}
+    </div>
+    <div class="card-body">
+      {{ dictionary.Salary }}: {{ employee.employee_salary }}
+    </div>
+    <div class="card-body">
+      {{ dictionary.Age }}: {{ employee.employee_age }}
+    </div>
+    <div class="my-2 mx-2">
+      <button
+        type="button"
+        class="btn btn-primary edit-button"
+        (click)="onEditClick(employee)"
+      >
+        {{ dictionary.EditEmployee }}
+      </button>
+    </div>
+  </div>
+</div>
+
+<app-create-employee
+  [visible]="openCreateDialog"
+  (hideDialog)="openCreateDialog = false"
+  (onCreateEmployeeClick)="onCreateEmployeeClick($event)"
+/>
