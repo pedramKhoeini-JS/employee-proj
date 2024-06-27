@@ -12,9 +12,17 @@ import { PrimeNgModule } from './shared/prime-ng/prime-ng.module';
 import { MessageService } from 'primeng/api';
 import { EmployeeEditComponent } from './employee/view/employee-edit/employee-edit.component';
 import { CreateEmployeeComponent } from './employee/component/create-employee/create-employee.component';
+import { LoadingComponent } from './shared/loading/loading/loading.component';
+import { HeaderInterceptor } from './interceptors/header-interceptors.';
 
 @NgModule({
-  declarations: [AppComponent, EmployeeListComponent, EmployeeEditComponent, CreateEmployeeComponent],
+  declarations: [
+    AppComponent,
+    EmployeeListComponent,
+    EmployeeEditComponent,
+    CreateEmployeeComponent,
+    LoadingComponent,
+  ],
   imports: [
     BrowserModule,
     AppRoutingModule,
@@ -25,6 +33,7 @@ import { CreateEmployeeComponent } from './employee/component/create-employee/cr
   ],
   providers: [
     { provide: HTTP_INTERCEPTORS, useClass: ErrorInterceptor, multi: true },
+    { provide: HTTP_INTERCEPTORS, useClass: HeaderInterceptor, multi: true },
     MessageService,
   ],
   bootstrap: [AppComponent],

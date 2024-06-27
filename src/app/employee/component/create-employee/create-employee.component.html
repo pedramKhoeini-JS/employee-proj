@@ -1,12 +1,12 @@
 <p-dialog
-  header="Edit Profile"
+  [header]="dictionary.CreateEmployee"
   [modal]="true"
   [(visible)]="visible"
   [style]="{ width: '25rem' }"
   (onHide)="onHideDialog()"
 >
   <div class="registration-form">
-    <form>
+    <form #employeeForm="ngForm">
       <div class="form-group">
         <input
           type="text"
@@ -15,6 +15,7 @@
           name="fullName"
           placeholder="FullName"
           [(ngModel)]="employee.employee_name"
+          required
         />
       </div>
       <div class="form-group">
@@ -25,6 +26,7 @@
           name="salary"
           placeholder="Salary"
           [(ngModel)]="employee.employee_salary"
+          required
         />
       </div>
       <div class="form-group">
@@ -35,6 +37,7 @@
           name="age"
           placeholder="age"
           [(ngModel)]="employee.employee_age"
+          required
         />
       </div>
       <div class="form-group">
@@ -42,8 +45,9 @@
           type="button"
           class="btn btn-block create-account"
           (click)="onSubmit()"
+          [disabled]="!employeeForm.form.valid"
         >
-          {{ dictionary.EditEmployee }}
+          {{ dictionary.CreateEmployee }}
         </button>
       </div>
     </form>

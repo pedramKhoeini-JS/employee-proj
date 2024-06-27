@@ -18,6 +18,7 @@ export class EmployeeListComponent implements OnInit {
   openCreateDialog = false;
   createEmployeeSub$ = new Subscription();
   getAllEmployeesSub$ = new Subscription();
+  showLoading = false;
 
   constructor(
     private employeeService: EmployeeService,
@@ -30,13 +31,16 @@ export class EmployeeListComponent implements OnInit {
   }
 
   getEmployeeList(): void {
+    this.showLoading = true;
     this.employeeService.getAllEmployees().subscribe({
       next: (res) => {
         this.employees = res.data;
+        this.showLoading = false;
       },
       error: (error) => {
         this.errorMessage = error.message;
         console.log(this.errorMessage);
+        this.showLoading = false;
       },
     });
   }
@@ -46,6 +50,7 @@ export class EmployeeListComponent implements OnInit {
   }
 
   onCreateEmployeeClick(data: Employee) {
+    this.showLoading = true;
     this.createEmployeeSub$ = this.employeeService
       .createEmployee(data)
       .subscribe({
@@ -55,6 +60,7 @@ export class EmployeeListComponent implements OnInit {
         },
         error: (error) => {
           this.errorMessage = error.message;
+          this.showLoading = false;
         },
       });
   }

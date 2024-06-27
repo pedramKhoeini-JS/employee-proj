@@ -18,6 +18,7 @@ export class EmployeeEditComponent implements OnInit {
   getEmployeeSub$ = new Subscription();
   editEmployeeSub$ = new Subscription();
   errorMessage: string = '';
+  showLoading = false;
   constructor(
     private route: ActivatedRoute,
     private employeeService: EmployeeService,
@@ -31,29 +32,34 @@ export class EmployeeEditComponent implements OnInit {
     this.getEmployee();
   }
   getEmployee(): void {
+    this.showLoading = true;
     this.getEmployeeSub$ = this.employeeService
       .getEmployeeById(this.employeeId!)
       .subscribe({
         next: (res) => {
           this.employee = res.data;
-          console.log(this.employee);
+          this.showLoading = false;
         },
         error: (error) => {
           this.errorMessage = error.message;
+          this.showLoading = false;
         },
       });
   }
 
   onEditEmployeeClick(): void {
+    this.showLoading = true;
     this.editEmployeeSub$ = this.employeeService
       .updateEmployee(this.employeeId!, this.employee)
       .subscribe({
         next: (res) => {
           this.toastService.showSuccess(`${res.data.employee_name} edited`);
+          this.showLoading = false;
           this.router.navigate(['/employee']);
         },
         error: (error) => {
           this.errorMessage = error.message;
+          this.showLoading = false;
         },
       });
   }
